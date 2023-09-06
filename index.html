@@ -1,0 +1,177 @@
+<title>Supersonic Nozzle Flow Calculator</title>
+<h1>Supersonic Nozzle Flow Calculator</h4>
+<div id="div">
+    <table id="inputTable" align="center">
+        <th colspan="2">INPUT</th>
+        <tr>
+            <td>Throat diameter (mm)</td>
+            <td><input type="text" id="dThroat" class="inputs"></td>
+        </tr>
+        <tr>
+            <td>Exit diameter (mm)</td>
+            <td><input type="text" id="dExit" class="inputs"></td>
+        </tr>
+        <tr>
+            <td>Heat capacity ratio</td>
+            <td><input type="text" id="capRatio" class="inputs"></td>
+        </tr>
+        <tr>
+            <td>Gas constant (J/kgK)</td>
+            <td><input type="text" id="R" class="inputs"></td>
+        </tr>
+        <tr>
+            <td>Stagnation pressure (bar)</td>
+            <td><input type="text" id="p0" class="inputs"></td>
+        </tr>
+        <tr>
+            <td>Stagnation temperature (K)</td>
+            <td><input type="text" id="t0" class="inputs"></td>
+        </tr>
+    </table>
+</div>
+<p></p>
+<p></p>
+<p align="center"><button id="dataIn" align="center">INPUT DATA</button></p>
+<p></p>
+<p></p>
+<div id="div">
+    <table id="outputTable" align="center">
+        <th colspan="2">OUTPUT</th>
+        <tr>
+            <td>Area ratio</td>
+            <td id="var1"></td>
+        </tr>
+        <tr>
+            <td>Throat area (mm^2)</td>
+            <td id="var2"></td>
+        </tr>
+        <tr>
+            <td>Exit Mach number</td>
+            <td id="var3"></td>
+        </tr>
+        <tr>
+            <td>Exit pressure (bar)</td>
+            <td id="var4"></td>
+        </tr>
+        <tr>
+            <td>Throat pressure (bar)</td>
+            <td id="var5"></td>
+        </tr>
+        <tr>
+            <td>Exit temperature (K)</td>
+            <td id="var6"></td>
+        </tr>
+        <tr>
+            <td>Exit velocity (m/s)</td>
+            <td id="var7"></td>
+        </tr>
+        <tr>
+            <td>Chocking mass flow rate (kg/s)</td>
+            <td id="var8"></td>
+        </tr>
+    </table>
+</div>
+<style>
+    h1 {
+        text-align :center;
+        text-decoration :solid;
+        font-size :40px;
+    }
+    #div {
+        background-color: lightskyblue;
+        border: 2px solid black;
+        width: 700px;
+        margin: auto;
+    }
+    #inputTable {
+        text-align: left;
+        font-size: 20px;
+        border-spacing: 5px;
+    }
+    #outputTable {
+        text-align: left;
+        font-size: 20px;
+        border-spacing: 5px;
+    }
+    th {
+        border-bottom: 5px solid black;
+        text-align: center;
+    }
+    td {
+        width: 300px;
+        border-top: 3px dotted black;
+    }
+    td:last-child {
+        border-left: 3px dotted black;
+    }
+    .inputs {
+        width: 300px;
+        font-size: 20px;
+    }
+    #dataIn {
+        width: 100px;
+        height: 50px;
+        font-size: 20px;
+    }
+</style>
+
+<script>
+    function round(x, digit) {
+        let mod = Math.pow(10, digit)
+        return Math.round(x / mod) * mod
+    }
+    function diff(func, x) {
+    return (func(x + 0.00001) - func(x - 0.00001)) / 0.00002
+    }
+
+    function solve(g, init) {
+        let err = 1
+        let pred = init
+        let prev = pred
+        while (err >= 0.000001) {
+            pred -= g(pred) / diff(g, pred)
+            err = Math.abs(1 - prev/pred)
+            prev = pred
+            //console.log(pred)
+        }
+        return pred
+    }
+    function readFromElementId(id, type) {
+        return type(document.getElementById(id).value)
+    }
+    function writeInElement(id, content) {
+        document.getElementById(id).innerHTML = content.toString()
+    }
+    document.querySelector('#dataIn').addEventListener('click', function () {
+        const dThroat = readFromElementId('dThroat', Number)
+        const dExit =  readFromElementId('dExit', Number)
+        const k = readFromElementId('capRatio', Number)
+        const A_ratio = Math.pow(dExit / dThroat, 2)
+        const i = (k + 1) / 2
+        const j = (k - 1) / 2
+        const R = readFromElementId('R', Number)
+        const p0 = readFromElementId('p0', Number)
+        const t0 = readFromElementId('t0', Number)
+
+        let Ma = 100
+        function f(M) {
+            if (A_ratio < 1) { return NaN; }
+            return Math.pow((1 + j * M * M)/i, i/j) - Math.pow(M * A_ratio, 2)
+        }
+        function g(M) {
+            return 1 / (1 + j * M * M)
+        }
+        const Me = round(solve(f, Ma),-4)
+        const gme = g(Me)
+        const Athroat = Math.PI * dThroat * dThroat / 4
+        const Te = gme * t0
+        writeInElement('var1', A_ratio)
+        writeInElement('var2', Athroat)
+        writeInElement('var3', Me)
+        writeInElement('var4', Math.pow(gme, 0.5  * k / j) * p0)
+        writeInElement('var5', Math.pow(g(1), 0.5 * k / j) * p0)
+        writeInElement('var6', Te)
+        writeInElement('var7', Math.sqrt(k*R*Te)*Me)
+        writeInElement('var8', Math.sqrt(k/(R * t0)) * Athroat * p0 * Math.pow(i, -2 * i / j) * 0.1)
+    })
+</script>
