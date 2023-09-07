@@ -1,76 +1,79 @@
 <title>Supersonic Nozzle Flow Calculator</title>
-<h1>Supersonic Nozzle Flow Calculator</h4>
-<div id="div">
-    <table id="inputTable" align="center">
-        <th colspan="2">INPUT</th>
-        <tr>
-            <td>Throat diameter (mm)</td>
-            <td><input type="text" id="dThroat" class="inputs"></td>
-        </tr>
-        <tr>
-            <td>Exit diameter (mm)</td>
-            <td><input type="text" id="dExit" class="inputs"></td>
-        </tr>
-        <tr>
-            <td>Heat capacity ratio</td>
-            <td><input type="text" id="capRatio" class="inputs"></td>
-        </tr>
-        <tr>
-            <td>Gas constant (J/kgK)</td>
-            <td><input type="text" id="R" class="inputs"></td>
-        </tr>
-        <tr>
-            <td>Stagnation pressure (bar)</td>
-            <td><input type="text" id="p0" class="inputs"></td>
-        </tr>
-        <tr>
-            <td>Stagnation temperature (K)</td>
-            <td><input type="text" id="t0" class="inputs"></td>
-        </tr>
-    </table>
-</div>
-<p></p>
-<p></p>
-<p align="center"><button id="dataIn" align="center">INPUT DATA</button></p>
-<p></p>
-<p></p>
-<div id="div">
-    <table id="outputTable" align="center">
-        <th colspan="2">OUTPUT</th>
-        <tr>
-            <td>Area ratio</td>
-            <td id="var1"></td>
-        </tr>
-        <tr>
-            <td>Throat area (mm^2)</td>
-            <td id="var2"></td>
-        </tr>
-        <tr>
-            <td>Exit Mach number</td>
-            <td id="var3"></td>
-        </tr>
-        <tr>
-            <td>Exit pressure (bar)</td>
-            <td id="var4"></td>
-        </tr>
-        <tr>
-            <td>Throat pressure (bar)</td>
-            <td id="var5"></td>
-        </tr>
-        <tr>
-            <td>Exit temperature (K)</td>
-            <td id="var6"></td>
-        </tr>
-        <tr>
-            <td>Exit velocity (m/s)</td>
-            <td id="var7"></td>
-        </tr>
-        <tr>
-            <td>Chocking mass flow rate (kg/s)</td>
-            <td id="var8"></td>
-        </tr>
-    </table>
-</div>
+<head><meta name="google-site-verification" content="ZiIEmXljA0p8AQ7Jt1UrlzwgzOqGw728LqWAba7vw9E" /></head>
+<body>
+    <h1>Supersonic Nozzle Flow Calculator</h1>
+    <div id="div">
+        <table id="inputTable" align="center">
+            <th colspan="2">INPUT</th>
+            <tr>
+                <td>Throat diameter (mm)</td>
+                <td><input type="text" id="dThroat" class="inputs"></td>
+            </tr>
+            <tr>
+                <td>Exit diameter (mm)</td>
+                <td><input type="text" id="dExit" class="inputs"></td>
+            </tr>
+            <tr>
+                <td>Heat capacity ratio</td>
+                <td><input type="text" id="capRatio" class="inputs"></td>
+            </tr>
+            <tr>
+                <td>Gas constant (J/kgK)</td>
+                <td><input type="text" id="R" class="inputs"></td>
+            </tr>
+            <tr>
+                <td>Stagnation pressure (bar)</td>
+                <td><input type="text" id="p0" class="inputs"></td>
+            </tr>
+            <tr>
+                <td>Stagnation temperature (K)</td>
+                <td><input type="text" id="t0" class="inputs"></td>
+            </tr>
+        </table>
+    </div>
+    <p></p>
+    <p></p>
+    <p align="center"><button id="dataIn" align="center">INPUT DATA</button></p>
+    <p></p>
+    <p></p>
+    <div id="div">
+        <table id="outputTable" align="center">
+            <th colspan="2">OUTPUT</th>
+            <tr>
+                <td>Area ratio</td>
+                <td id="var1"></td>
+            </tr>
+            <tr>
+                <td>Throat area (mm^2)</td>
+                <td id="var2"></td>
+            </tr>
+            <tr>
+                <td>Exit Mach number</td>
+                <td id="var3"></td>
+            </tr>
+            <tr>
+                <td>Exit pressure (bar)</td>
+                <td id="var4"></td>
+            </tr>
+            <tr>
+                <td>Throat pressure (bar)</td>
+                <td id="var5"></td>
+            </tr>
+            <tr>
+                <td>Exit temperature (K)</td>
+                <td id="var6"></td>
+            </tr>
+            <tr>
+                <td>Exit velocity (m/s)</td>
+                <td id="var7"></td>
+            </tr>
+            <tr>
+                <td>Chocking mass flow rate (kg/s)</td>
+                <td id="var8"></td>
+            </tr>
+        </table>
+    </div>
+</body>
 <style>
     h1 {
         text-align :center;
