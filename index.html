@@ -52,7 +52,7 @@
                 <td id="var5"></td>
             </tr>
             <tr>
-                <td>Throat temperature (K)</td>
+                <td>Throat temperature ('C)</td>
                 <td id="var6"></td>
             </tr>
             <tr>
@@ -64,7 +64,7 @@
                 <td id="var4"></td>
             </tr>
             <tr>
-                <td>Exit temperature (K)</td>
+                <td>Exit temperature ('C)</td>
                 <td id="var7"></td>
             </tr>
             <tr>
@@ -177,8 +177,8 @@
         writeInElement('var3', Me)
         writeInElement('var4', Math.pow(gme, 0.5  * k / j) * p0)
         writeInElement('var5', Math.pow(g(1), 0.5 * k / j) * p0)
-        writeInElement('var6', g(1) * t0)
-        writeInElement('var7', Te)
+        writeInElement('var6', g(1) * t0 - 273.15)
+        writeInElement('var7', Te - 273.15)
         writeInElement('var8', Math.sqrt(k*R*Te)*Me)
         writeInElement('var9', Math.sqrt(k/(R * t0)) * Athroat * p0 * Math.pow(i, -2 * i / j) * 0.1)
     })
